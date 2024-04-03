@@ -1,0 +1,7 @@
+# FROM python base image
+FROM python:3-alpine3.15
+
+RUN pip install sslyze
+
+# CMD specifies the command to execute container starts running.
+ENTRYPOINT ["sslyze"]
