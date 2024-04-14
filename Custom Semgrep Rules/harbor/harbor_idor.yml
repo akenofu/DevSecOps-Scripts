@@ -1,0 +1,19 @@
+rules:
+  - id: harbor_idor
+    languages:
+      - go
+    message: Potential IDOR? Are you sure no authentication/authorization checks should be performed here?
+    mode: taint
+    pattern-sources:
+      - pattern: |
+          func $X(...) {
+          ...
+          return...
+          }
+    pattern-sanitizers:
+      - pattern: $SE.GetSecurityContext(ctx)
+    pattern-sinks:
+      - pattern: return
+    by-side-effect: true
+    exact: false
+    severity: WARNING
